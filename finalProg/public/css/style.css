@@ -37,29 +37,27 @@ button{
   z-index: 1;
   position: relative;
   right: -32px;
-  top: 10px;
 }
-#water{
-  margin-top: 80px;
+#street2{
+  margin-top: 50px;
   margin-bottom: 75px;
   width: 1380px;
   height: 200px;
-  background-color: skyblue;
+  background-color: gray;
+  position:relative;
+  z-index: 1;
+  right: -30px;
+}
+#street3{
+  margin-top: 40px;
+  width: 1380px;
+  height: 100px;
+  background-color: gray;
   position:relative;
   z-index: 1;
   right: -30px;
 }
 
-#movingObject{
-  margin-top: 100px;
-  margin-bottom: 75px;
-  width: 100px;
-  height: 50px;
-  margin-left: 650px;
-  background-color: red;
-  z-index: 1;
-  position:relative;
-}
 
 /* #scream{
   z-index: 3;
