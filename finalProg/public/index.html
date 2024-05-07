@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,39 +7,125 @@
   <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="">
-
   <meta property="og:title" content="">
   <meta property="og:type" content="">
   <meta property="og:url" content="">
   <meta property="og:image" content="">
-
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
-
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
 </head>
-
 <body>
   <header>
     <h1><b>Crossy Roads</b></h1>
   </header>
-  <canvas id="myCanvas"></canvas>
-  <button type="button"> ◀️ </button>
-  <button type="button"> ▼ </button> 
-  <button type="button"> ▶️ </button>
-  <button type="button" > ▲ </button>
-  <canvas id="streets"></canvas>
+  <div id="back">
+    <canvas id="layer1"></canvas>
+    <canvas id="water"></canvas>
+    <canvas id="streets"></canvas>
+    <!-- <button type="button"> ◀️ </button>
+    <button type="button"> ▼ </button> 
+    <button type="button"> ▶️ </button>
+    <button type="button" class="upBtn"> ▲ </button> -->
+  </div>
+  <script>
+    const canvas = document.getElementById("streets");
+    const ctx = canvas.getContext("2d");
+    let x = [10, 15, 30];
+    let y = [0, 100, 0];
+    const width = 10;
+    const height = 50;
+    const speed = [1,1,1];
+    function slide (time) {
+      for (i = 0; i < 3; i++) {
+        ctx.clearRect(x[i]-speed[i]-1, y[i], x[i]+width+2, y[i]+height+2);
+        ctx.fillRect(x[i], y[i], width, height);
+        x[i] += speed[i];
+        if (x[i] > canvas.width) x[i] = 0;
+      }
+      window.requestAnimationFrame(slide);
+    };
+    window.requestAnimationFrame(slide);
 
-<!-- class="upBtn" -->
+    const canvas2 = document.getElementById("water");
+    const ctx2 = canvas2.getContext("2d");
+    let x2 = [10, 30, 60, 100];
+    let y2 = [0, 60, 0, 120];
+    const width2 = 25;
+    const height2 = 30;
+    const speed2 = [1, 1,1, 1];
+    function slide2 (time) {
+      for (i = 0; i < 4; i++) {
+        ctx2.clearRect(x2[i]-speed2[i]-1, y2[i], x2[i]+width2+2, y2[i]+height2+2);
+        ctx2.fillRect(x2[i], y2[i], width2, height2);
+        x2[i] += speed2[i];
+        if (x2[i] > canvas2.width) x2[i] = 0;
+      }
+      window.requestAnimationFrame(slide2);
+    };
+    window.requestAnimationFrame(slide2);
+
+    // Moving Object
+    const movingObjectCanvas = document.getElementById("layer1");
+    const movingObjectCtx = movingObjectCanvas.getContext("2d");
+    let movingObjectX = movingObjectCanvas.width / 2;
+    let movingObjectY = movingObjectCanvas.height / 2;
+    const movingObjectWidth = 20;
+    const movingObjectHeight = 20;
+    const movingObjectSpeed = 5;
+
+    function drawMovingObject() {
+      movingObjectCtx.clearRect(0, 0, movingObjectCanvas.width, movingObjectCanvas.height);
+      movingObjectCtx.fillStyle = "blue";
+      movingObjectCtx.fillRect(movingObjectX, movingObjectY, movingObjectWidth, movingObjectHeight);
+      movingObjectCtx.globalCompositeOperation = "destination-over";
+    }
+
+    function moveMovingObject(direction) {
+      switch(direction) {
+        case "up":
+          movingObjectY -= 10;
+          break;
+        case "down":
+          movingObjectY += 10;
+          break;
+        case "left":
+          movingObjectX -= 10;
+          break;
+        case "right":
+          movingObjectX += 10;
+          break;
+      }
+      drawMovingObject();
+    }
+
+    document.addEventListener("keydown", function(event) {
+      switch(event.key) {
+        case "ArrowUp":
+          moveMovingObject("up");
+          break;
+        case "ArrowDown":
+          moveMovingObject("down");
+          break;
+        case "ArrowLeft":
+          moveMovingObject("left");
+          break;
+        case "ArrowRight":
+          moveMovingObject("right");
+          break;
+      }
+    });
+
+    drawMovingObject();
+  </script>
+  <!-- class="upBtn" -->
   <script src="js/vendor/jquery.min.js" crossorigin="anonymous"></script>
   <script src="js/vendor/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="js/script.js"></script>
 </body>
-
 </html>

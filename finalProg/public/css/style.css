@@ -1,11 +1,14 @@
-#myCanvas {
+#layer1 {
   margin: auto;
-  width: 1380px;
-  height: 645px;
   background-color: seagreen;
   border: 2px solid black;
   /* left: 20px; */
   margin-left: 30px;
+  width: 1380px;
+  height:645px; 
+  position: absolute; 
+  left: 0; 
+  z-index: 0;
 }
 
 h1 {
@@ -22,16 +25,38 @@ button{
 }
 
 .upBtn{
-  position: relative; /* i couldn't figure out how to get this button above the other 3 without using fixed but bc it's fixed, when you scroll it stays in one spot 💀 */
-  margin-top: 620px;
+  position: fixed; /* i couldn't figure out how to get this button above the other 3 without using fixed but bc it's fixed, when you scroll it stays in one spot 💀 */
   left: 630px;
 }
 
+
 #streets{
-  margin: auto;
   width: 1380px;
   height: 100px;
-  margin-left: 30px;
   background-color: gray;
-  margin-bottom: 1000px;
+  z-index: 1;
+  position: relative;
+  right: -30px;
+  top: 10px;
+}
+#water{
+  margin-top: 80px;
+  margin-bottom: 75px;
+  width: 1380px;
+  height: 200px;
+  background-color: skyblue;
+  position:relative;
+  z-index: 1;
+  right: -30px;
+}
+
+#movingObject{
+  margin-top: 100px;
+  margin-bottom: 75px;
+  width: 100px;
+  height: 50px;
+  margin-left: 650px;
+  background-color: red;
+  z-index: 1;
+  position:relative;
 }
