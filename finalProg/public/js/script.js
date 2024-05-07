@@ -10,16 +10,22 @@ const image = document.getElementById("scream");
 const canvas = document.getElementById("streets");
 const ctx = canvas.getContext("2d");
 let x = [10, 15, 30];
+let xpx = [545,550,565];
 let y = [0, 100, 0];
+let ypx = [280,330,280]
 const width = 10;
 const height = 50;
-const speed = [1,1,1];
+const speed = [0,1,1];
 function slide (time) {
   for (let i = 0; i < 3; i++) {
     ctx.clearRect(x[i]-speed[i]-1, y[i], width+2, height+2);
     ctx.fillRect(x[i], y[i], width, height);
     x[i] += speed[i];
-    if (x[i] > canvas.width) x[i] = 0;
+    xpx[i] += speed[i];
+    if (x[i] > canvas.width) {
+      x[i] = 0;
+      xpx[i] = 535;
+    }
   }
   window.requestAnimationFrame(slide);
 };
@@ -38,7 +44,6 @@ function slide2 (time) {
     ctx2.fillRect(x2[i], y2[i], width2, height2);
     x2[i] += speed2[i];
     if (x2[i] > canvas2.width) x2[i] = 0;
-    checkCollision();
   }
   window.requestAnimationFrame(slide2);
 };
@@ -58,49 +63,75 @@ document.addEventListener("keydown", function(event) {
     case "ArrowUp":
       if (top - 50 >= -120){
         image.style.top = `${top - 50}px`;
+        console.log(`Image position: (${left}px, ${top - 50}px`); // Print position
+        for(let i = 0; i < x.length; i++){
+          console.log(xpx[i]);
+          console.log(ypx[i]);
+          if(xpx[i]+10 >= left && left >= xpx[i] -10 && ypx[i] == top){
+            image.style.left = '680px';
+            image.style.top = '480px';
+          }
+        }
         break;
       }
     case "ArrowDown":
       if (top + 50 <= 480){
-      image.style.top = `${top + 50}px`;
+        image.style.top = `${top + 50}px`;
+        for(let i = 0; i < x.length; i++){
+          console.log(xpx[i]);
+          console.log(ypx[i]);
+          if(xpx[i]+10 >= left && left >= xpx[i] -10 && ypx[i] == top){
+            image.style.left = '680px';
+            image.style.top = '480px';
+          }
+        }
       }
       break;
     case "ArrowLeft":
       if(left - 50 >= 0){
       image.style.left = `${left - 50}px`;
+      for(let i = 0; i < x.length; i++){
+        console.log(xpx[i]);
+        console.log(ypx[i]);
+        if(xpx[i]+10 >= left && left >= xpx[i] -10 && ypx[i] == top){
+          image.style.left = '680px';
+          image.style.top = '480px';
+        }
+      }
       }
       break;
     case "ArrowRight":
       if(left + 50 <= 1350){
-      image.style.left = `${left + 50}px`;
+        image.style.left = `${left + 50}px`;
+        for(let i = 0; i < x.length; i++){
+          console.log(xpx[i]);
+          console.log(ypx[i]);
+          if(xpx[i]+10 >= left && left >= xpx[i] -10 && ypx[i] == top){
+            image.style.left = '680px';
+            image.style.top = '480px';
+          }
+        }
       }
       break;
   }
 });
-
-// Function to check collision between image and sliding rectangles
-function checkCollision() {
-  const imageRect = image.getBoundingClientRect(); // Get bounding box of the image
-  for (let i = 0; i < x.length; i++) {
-    const rect = {
-      x: x[i],
-      y: y[i],
-      width: width,
-      height: height
-    };
-    // Check if image and rectangle overlap
-    if (
-      imageRect.left < rect.x + width &&
-      imageRect.right > rect.x &&
-      imageRect.top < rect.y + height &&
-      imageRect.bottom > rect.y
-    ) {
-      // Collision detected, return image to initial position
-      image.style.left = '680px';
-      image.style.top = '480px';
-      break; // Exit loop since collision detected
+function continuouslyRunningFunction() {
+    let left = parseInt(image.style.left, 10);
+    let top = parseInt(image.style.top, 10);
+    for(let i = 0; i < x.length; i++){
+      console.log(xpx[i]);
+      console.log(ypx[i]);
+      if(xpx[i]+10 >= left && left >= xpx[i] -10 && ypx[i] == top){
+        image.style.left = '680px';
+        image.style.top = '480px';
+      }
     }
-  }
+    // Your code here
+    console.log("This function runs continuously");
 }
+
+// Call continuouslyRunningFunction() every 1000 milliseconds (1 second)
+setInterval(continuouslyRunningFunction, 300);
+
 
 // drawMovingObject(); // Initial draw of the moving object
