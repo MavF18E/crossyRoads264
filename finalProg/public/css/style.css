@@ -31,12 +31,12 @@ button{
 
 
 #streets{
-  width: 1380px;
+  width: 1376px;
   height: 100px;
   background-color: gray;
   z-index: 1;
   position: relative;
-  right: -30px;
+  right: -32px;
   top: 10px;
 }
 #water{
@@ -59,4 +59,29 @@ button{
   background-color: red;
   z-index: 1;
   position:relative;
+}
+
+/* #scream{
+  z-index: 3;
+} */
+
+#back {
+  position: relative;
+
+}
+
+canvas, #scream {
+  position: absolute;
+  /* top: 0;
+  left: 0; */
+}
+
+
+
+#scream {
+  z-index: 2; /* Ensuring that image is above all canvases */
+  width: 50px;
+  height: 50px;
+  left: 750px;
+  margin-top: 100px;
 }
