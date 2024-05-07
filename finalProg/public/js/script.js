@@ -38,30 +38,17 @@ function slide2 (time) {
     ctx2.fillRect(x2[i], y2[i], width2, height2);
     x2[i] += speed2[i];
     if (x2[i] > canvas2.width) x2[i] = 0;
+    checkCollision();
   }
   window.requestAnimationFrame(slide2);
 };
 window.requestAnimationFrame(slide2);
 
-// Moving Object on the Canvas
-let movingObjectX = canvas1.width / 2;
-let movingObjectY = canvas1.height-30;
-const movingObjectWidth = 20;
-const movingObjectHeight = 20;
-
-// function drawMovingObject() {
-//   ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
-//   ctx1.fillStyle = "transparent";
-//   ctx1.fillRect(movingObjectX, movingObjectY, movingObjectWidth, movingObjectHeight);
-// }
-
-// Updated Keyboard Control for Moving both the Canvas Rect and HTML Image
-// const image = document.getElementById("scream");
 
 // Set initial position for the image if not already set in CSS
 image.style.position = 'absolute';  // Make sure the image can be positioned
 image.style.left = '680px';  // Initial horizontal position
-image.style.top = "600px";   // Initial vertical position
+image.style.top = "480px";   // Initial vertical position
 
 document.addEventListener("keydown", function(event) {
   let left = parseInt(image.style.left, 10);
@@ -69,19 +56,51 @@ document.addEventListener("keydown", function(event) {
 
   switch(event.key) {
     case "ArrowUp":
-      image.style.top = `${top - 10}px`;
-      break;
+      if (top - 50 >= -120){
+        image.style.top = `${top - 50}px`;
+        break;
+      }
     case "ArrowDown":
-      image.style.top = `${top + 10}px`;
+      if (top + 50 <= 480){
+      image.style.top = `${top + 50}px`;
+      }
       break;
     case "ArrowLeft":
-      image.style.left = `${left - 10}px`;
+      if(left - 50 >= 0){
+      image.style.left = `${left - 50}px`;
+      }
       break;
     case "ArrowRight":
-      image.style.left = `${left + 10}px`;
+      if(left + 50 <= 1350){
+      image.style.left = `${left + 50}px`;
+      }
       break;
   }
 });
 
+// Function to check collision between image and sliding rectangles
+function checkCollision() {
+  const imageRect = image.getBoundingClientRect(); // Get bounding box of the image
+  for (let i = 0; i < x.length; i++) {
+    const rect = {
+      x: x[i],
+      y: y[i],
+      width: width,
+      height: height
+    };
+    // Check if image and rectangle overlap
+    if (
+      imageRect.left < rect.x + width &&
+      imageRect.right > rect.x &&
+      imageRect.top < rect.y + height &&
+      imageRect.bottom > rect.y
+    ) {
+      // Collision detected, return image to initial position
+      image.style.left = '680px';
+      image.style.top = '480px';
+      break; // Exit loop since collision detected
+    }
+  }
+}
 
 // drawMovingObject(); // Initial draw of the moving object

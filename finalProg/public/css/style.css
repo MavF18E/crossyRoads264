@@ -5,7 +5,7 @@
   /* left: 20px; */
   margin-left: 30px;
   width: 1380px;
-  height:645px; 
+  height: 650px; 
   position: absolute; 
   left: 0; 
   z-index: 0;
@@ -80,8 +80,8 @@ canvas, #scream {
 
 #scream {
   z-index: 2; /* Ensuring that image is above all canvases */
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   left: 750px;
   margin-top: 100px;
 }
